@@ -6,6 +6,7 @@ import UserForm from './components/UserForm';
 import Question from './components/Question';
 import Results from './components/Results';
 import { Toggle } from './components/Toggle';
+import useLocalStorage from 'use-local-storage';
 
 
 
@@ -66,7 +67,8 @@ function App() {
   const [element, setElement] = useState('');
   const [artwork, setArtwork] = useState(null);
   const [dataLoaded, setDataLoaded] = useState(false);
-  const [isDark, setIsDark] = useState(false);
+  const preferences = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const [isDark, setIsDark] = useLocalStorage('isDark', preferences);
    /*To ensure that the theme is applied to the html element, which correctly updates all the global styles defined for [data-theme="dark"] useEffect is used here. */
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
